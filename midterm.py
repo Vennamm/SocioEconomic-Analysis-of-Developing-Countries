@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 from pandas.api.types import is_numeric_dtype
+import streamlit.components.v1 as components
 import hiplot as hip
 import plotly.express as px
 import plotly.subplots as sp 
