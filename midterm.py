@@ -340,19 +340,20 @@ elif view == "Sandbox Mode":
         st.plotly_chart(fig_3d, use_container_width=True)
     
     elif len(selected_metrics) > 3:
-
         filtered_data = filtered_data[['country','year'] + selected_metrics].dropna()
         country_map = {country: idx for idx, country in enumerate(filtered_data['country'].unique())}
         filtered_data['country_numeric'] = filtered_data['country'].map(country_map)
 
-        reset_selection = st.button('Reset Selection')
-
-        if reset_selection:
-            filtered_data = filtered_data[(filtered_data['country'].isin(countries)) & (filtered_data['year'].between(*years))]
-            filtered_data['country_numeric'] = filtered_data['country'].map(country_map)
+        # Modify reset functionality
+        if st.button('Reset Selection'):
+            st.session_state.filtered_data = filtered_data.copy()
+        else:
+            if 'filtered_data' not in st.session_state:
+                st.session_state.filtered_data = filtered_data.copy()
+            filtered_data = st.session_state.filtered_data
 
         dims = selected_metrics + ['country_numeric']
-        
+
         fig_parallel = px.parallel_coordinates(
             filtered_data, 
             dimensions=dims, 
@@ -361,20 +362,32 @@ elif view == "Sandbox Mode":
             title="",
             labels={'country_numeric': 'Country'} 
         )
-        
-        # fig_parallel.update_coloraxes(showscale=False)
+
+        # Update layout for better tick visibility
         fig_parallel.update_layout(
             margin=dict(l=100, r=50, t=50, b=50),
-            coloraxis_showscale=False 
+            coloraxis_showscale=False,
+            height=600,  # Increase height for better spacing
         )
 
+        # Update each dimension for better tick formatting
+        for dimension in fig_parallel.data[0].dimensions[:-1]:  # Exclude country dimension
+            dimension.update(
+                tickangle=45,  # Angle the tick labels
+                tickfont=dict(size=10),  # Reduce font size
+                tickformat='.2f'  # Limit decimal places
+            )
+
+        # Update country dimension separately
         country_ticks = list(country_map.items())
         fig_parallel.data[0].dimensions[-1].update(
             ticktext=[c[0] for c in country_ticks],
-            tickvals=[c[1] for c in country_ticks]
-        )
-        st.plotly_chart(fig_parallel, use_container_width=True)
+            tickvals=[c[1] for c in country_ticks],
+            tickangle=0,  # Keep country names horizontal
+            tickfont=dict(size=10)
+        )    
 
+        st.plotly_chart(fig_parallel, use_container_width=True)
         # experiment = hip.Experiment.from_dataframe(hiplot_data)
 
         # hip_exp = hip.Experiment.display_st(experiment)
