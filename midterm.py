@@ -373,7 +373,7 @@ elif view == "Sandbox Mode":
         # Update each dimension for better tick formatting
         for dimension in fig_parallel.data[0].dimensions[:-1]:  # Exclude country dimension
             dimension.update(
-                tickangle=45,  # Angle the tick labels
+                # tickangle=45,  # Angle the tick labels
                 tickfont=dict(size=10),  # Reduce font size
                 tickformat='.2f'  # Limit decimal places
             )
