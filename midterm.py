@@ -383,8 +383,8 @@ elif view == "Sandbox Mode":
         fig_parallel.data[0].dimensions[-1].update(
             ticktext=[c[0] for c in country_ticks],
             tickvals=[c[1] for c in country_ticks],
-            tickangle=0,  # Keep country names horizontal
-            tickfont=dict(size=10)
+            # tickangle=0,  # Keep country names horizontal
+            # tickfont=dict(size=10)
         )    
 
         st.plotly_chart(fig_parallel, use_container_width=True)
