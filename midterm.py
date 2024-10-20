@@ -73,13 +73,15 @@ if view == "Country View":
     with pie_cols[1]:
         education_expenditure = filtered_data['gdp_per_capita_usd'].values[0] * (filtered_data['education_expenditure_gdp'].values[0] / 100)
         healthcare_expenditure = filtered_data['healthcare_expenditure_per_capita_usd'].values[0]
+        military_expenditure = filtered_data['military_expenditure_billion_usd'].values[0] * 1000/(filtered_data['population_millions'].values[0])
         gdp_per_capita = filtered_data['gdp_per_capita_usd'].values[0]
-        remaining_gdp_per_capita = gdp_per_capita - (education_expenditure + healthcare_expenditure)
+        remaining_gdp_per_capita = gdp_per_capita - (education_expenditure + healthcare_expenditure + military_expenditure)
 
-        combined_fig = px.pie(values=[remaining_gdp_per_capita, education_expenditure, healthcare_expenditure],
-                               names=['Remaining GDP per Capita', 'Education Expenditure', 'Healthcare Expenditure'],
+        combined_fig = px.pie(values=[remaining_gdp_per_capita, education_expenditure, healthcare_expenditure, military_expenditure],
+                               names=['Remaining GDP per Capita', 'Education Expenditure', 'Healthcare Expenditure', 'Military Expenditure'],
                                title="Education and Healthcare Expenditure",
-                               hole=0.3)  # Make it a donut chart
+                               hole=0.3) 
+        combined_fig.update_traces(textposition='inside', textinfo='percent+label', textfont_size=12, showlegend=False)
         combined_fig.update_traces(textposition='inside', textinfo='percent+label', textfont_size=12, showlegend=False)
         
         st.plotly_chart(combined_fig, use_container_width=True)
@@ -91,7 +93,7 @@ if view == "Country View":
         
         sectors_fig = px.pie(values=[agriculture_percentage, industry_percentage, services_percentage],
                               names=['Agriculture', 'Industry', 'Services'],
-                              title="Economic Sectors Distribution",
+                              title="Gross Contribution by Each Sector",
                               hole=0.3)  # Make it a donut chart
         sectors_fig.update_traces(textposition='inside', textinfo='percent+label', textfont_size=12, showlegend=False)
         
@@ -339,14 +341,42 @@ elif view == "Sandbox Mode":
     
     elif len(selected_metrics) > 3:
 
-        hiplot_data = filtered_data[['country'] + selected_metrics].dropna()
+        filtered_data = filtered_data[['country'] + selected_metrics].dropna()
+        country_map = {country: idx for idx, country in enumerate(filtered_data['country'].unique())}
+        filtered_data['country_numeric'] = filtered_data['country'].map(country_map)
 
-        experiment = hip.Experiment.from_dataframe(hiplot_data)
-        
-        ret_val = experiment.to_streamlit(ret="selected_uids", key="hip").display()
+        reset_selection = st.button('Reset Selection')
 
-        st.markdown("hiplot returned " + json.dumps(ret_val))
+        if reset_selection:
+            filtered_data = filtered_data[(filtered_data['country'].isin(countries)) & (filtered_data['year'].between(*years))]
+            filtered_data['country_numeric'] = filtered_data['country'].map(country_map)
+
+        dims = selected_metrics + ['country_numeric']
         
+        fig_parallel = px.parallel_coordinates(
+            filtered_data, 
+            dimensions=dims, 
+            color='country_numeric',
+            color_continuous_scale=px.colors.sequential.Viridis, 
+            title="",
+            labels={'country_numeric': 'Country'} 
+        )
+        
+        # fig_parallel.update_coloraxes(showscale=False)
+        fig_parallel.update_layout(
+            margin=dict(l=100, r=50, t=50, b=50),
+            coloraxis_showscale=False 
+        )
+
+        country_ticks = list(country_map.items())
+        fig_parallel.data[0].dimensions[-1].update(
+            ticktext=[c[0] for c in country_ticks],
+            tickvals=[c[1] for c in country_ticks]
+        )
+        st.plotly_chart(fig_parallel, use_container_width=True)
+
+        # experiment = hip.Experiment.from_dataframe(hiplot_data)
+
         # hip_exp = hip.Experiment.display_st(experiment)
 
 elif view == "Documentation":
