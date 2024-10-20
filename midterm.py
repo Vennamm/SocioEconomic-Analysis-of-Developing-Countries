@@ -345,7 +345,8 @@ elif view == "Sandbox Mode":
         # ret_val = experiment.to_streamlit(ret="selected_uids", key="hip").display()
 
         # st.markdown("hiplot returned " + json.dumps(ret_val))
-        hip.streamlit_component(experiment)
+        with st.container():
+            ret_val = experiment.display_st(key="hiplot")
         # hip_exp = hip.Experiment.display_st(experiment)
 
 elif view == "Documentation":
