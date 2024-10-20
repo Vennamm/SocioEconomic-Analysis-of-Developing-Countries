@@ -342,7 +342,7 @@ elif view == "Sandbox Mode":
         hiplot_data = filtered_data[['country'] + selected_metrics].dropna()
 
         experiment = hip.Experiment.from_dataframe(hiplot_data)
-        ret_val = xp.to_streamlit(ret="selected_uids", key="hip").display()
+        ret_val = experiment.to_streamlit(ret="selected_uids", key="hip").display()
 
         st.markdown("hiplot returned " + json.dumps(ret_val))
         # hip_exp = hip.Experiment.display_st(experiment)
