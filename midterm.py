@@ -6,7 +6,7 @@ import hiplot as hip
 import plotly.express as px
 import plotly.subplots as sp 
 
-st.set_page_config(layout="wide")
+st.set_page_config(page_title="Socioeconomic Trend Analysis - Vaibhav", layout="wide")
 file_path = 'https://raw.githubusercontent.com/Vennamm/SocioEconomic-Analysis-of-Developing-Countries/main/working_df.csv' 
 data = pd.read_csv(file_path)
 
