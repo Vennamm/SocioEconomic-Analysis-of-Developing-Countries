@@ -348,7 +348,7 @@ elif view == "Sandbox Mode":
         reset_selection = st.button('Reset Selection')
 
         if reset_selection:
-            filtered_data = filtered_data[(filtered_data['country'].isin(countries)) & (filtered_data['year'].between(*years))]
+            filtered_data = data[(data['country'].isin(countries)) & (data['year'].between(*years))]
             filtered_data['country_numeric'] = filtered_data['country'].map(country_map)
 
         dims = selected_metrics + ['country_numeric']
