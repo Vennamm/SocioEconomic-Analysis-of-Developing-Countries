@@ -13,7 +13,7 @@ data = pd.read_csv(file_path)
 st.title("Socio-Economic Trend Analysis in Developing Countries")
 
 st.sidebar.title("Navigation")
-view = st.sidebar.radio("Select a View:", ["Country View", "Stats View", "Sandbox Mode", "Documentation"])
+view = st.sidebar.radio("Select a View:", ["Documentation", "Country View", "Stats View", "Sandbox Mode"])
 
 if view == "Country View":
     st.subheader("Country View")
