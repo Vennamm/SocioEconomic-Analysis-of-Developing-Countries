@@ -15,6 +15,7 @@ The dashboard consists of three main views:
 * Download the working_df.csv and the midterm.py files.
 * Open your command prompt, navigate to the folder where you have the downloaded files
 * Use the command `streamlit run midterm.py`. Rest is magic. :)
+* You can also visit https://socioeconomics-vaibhav.streamlit.app/ to view the project online.
 
 
 If you want to use the original work on how we reached working_df, additional analyses, imputations etc. - feel free to download midterm.ipynb and run the cells to see my thought process :) 
