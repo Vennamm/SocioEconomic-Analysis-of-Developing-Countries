@@ -387,11 +387,11 @@ elif view == "Documentation":
     I think it is pertinent to inform the users of the source of the information, and its genuinity. This project is aimed at highlighting the use of Streamlit in a data-wrapped world.
     The intent for this data is to act as a reference to be used in real-world dashboards and in no way, expected to imply any information from this dataset. Here's why:
     
-        * I have sourced this data from [Kaggle](https://www.kaggle.com/datasets/waqi786/country-comparison-dataset-usa-and-more/data), and joined this 
+        1. I have sourced this data from [Kaggle](https://www.kaggle.com/datasets/waqi786/country-comparison-dataset-usa-and-more/data), and joined this 
     data with the UN data archives for Import-Export data and Economic Contributions for each country. 
-        * However, unfortunately, the data that was sourced from Kaggle has been filled with wrong data based on real life estimates, making the whole analysis unreliable. 
-        * Please feel free to explore, and use any ideas that you gain from this dashboarding demonstration. 
-        * Do not draw insights out of this data. Any and all insights you see are just estimates of real life data, but do not, in any way, represent the actual data. 
+        2. However, unfortunately, the data that was sourced from Kaggle has been filled with wrong data based on real life estimates, making the whole analysis unreliable. 
+        3. Please feel free to explore, and use any ideas that you gain from this dashboarding demonstration. 
+        4. Do not draw insights out of this data. Any and all insights you see are just estimates of real life data, but do not, in any way, represent the actual data. 
 
     ## Overview
     This dashboard provides a comprehensive view of various indicators across multiple countries over time. Users can explore different metrics, visualize relationships between them, 
