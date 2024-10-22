@@ -385,13 +385,14 @@ elif view == "Documentation":
     ## Disclaimer:
 
     I think it is pertinent to inform the users of the source of the information, and its genuinity. This project is aimed at highlighting the use of Streamlit in a data-wrapped world.
-    The intent for this data is to act as a reference to be used in real-world dashboards and in no way, expected to imply any information from this dataset. Here's why:
+    The intent for this dashboard is to act as a reference to be used in real-world dashboards and in no way, expected to imply any information from this dataset. Here's why:
     
     1. I have sourced this data from [Kaggle](https://www.kaggle.com/datasets/waqi786/country-comparison-dataset-usa-and-more/data), and joined this 
     data with the UN data archives for Import-Export data and Economic Contributions for each country. 
     2. However, unfortunately, the data that was sourced from Kaggle has been filled with wrong data based on real life estimates, making the whole analysis unreliable. 
     3. Please feel free to explore, and use any ideas that you gain from this dashboarding demonstration. 
-    4. Do not draw insights out of this data. Any and all insights you see are just estimates of real life data, but do not, in any way, represent the actual data. 
+    4. Do not draw insights out of this data. Any and all insights you see are just estimates of real life data, but do not, in any way, represent the actual data. Doing so would create
+    undeserved bias towards countries and goes against the goal of this project.
     
     Finally, human emphasis on any dashboard delivers the right message. This dashboard will only act as that assisting tool to tell the story, and is not supposed to be self-explanatory
     in any sense. Presenters are expected to deliver the message by using the visualizations within this dataset, and this dashboard provides full freedom to do so. 
